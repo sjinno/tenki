@@ -1,2 +1,1 @@
-# tenki
-CLI Weather App
+# Tenki(天気)

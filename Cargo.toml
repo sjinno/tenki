@@ -1,0 +1,13 @@
+[package]
+edition = "2018"
+name = "tenki"
+version = "0.1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+ansi_term = "0.12"
+dotenv = "0.15"
+form_urlencoded = "1.0"
+reqwest = {version = "0.11", features = ["blocking", "json"]}
+structopt = "0.3"
