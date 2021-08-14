@@ -22,8 +22,9 @@ struct Cli {
 
 #[derive(Deserialize, Debug)]
 struct WeatherForecast {
-    current: Current,
     location: Location,
+    current: Current,
+    forecast: Option<Forecast>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -158,6 +159,467 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // let v: Value = serde_json::from_str(data)?;
     // println!("{:?}", v);
     let wf: WeatherForecast = serde_json::from_str(data)?;
+    println!("{:#?}", wf);
+
+    let data_long = r#"{
+        "location": {
+            "name": "Portland",
+            "region": "Oregon",
+            "country": "United States of America",
+            "lat": 45.52,
+            "lon": -122.68,
+            "tz_id": "America/Los_Angeles",
+            "localtime_epoch": 1628918055,
+            "localtime": "2021-08-13 22:14"
+        },
+        "current": {
+            "last_updated": "2021-08-13 21:00",
+            "temp_c": 28.3,
+            "temp_f": 82.9,
+            "is_day": 0,
+            "condition": {
+                "text": "Partly cloudy"
+            },
+            "wind_mph": 3.8,
+            "wind_kph": 6.1,
+            "precip_mm": 0.0,
+            "precip_in": 0.0,
+            "humidity": 59,
+            "cloud": 50,
+            "feelslike_c": 27.0,
+            "feelslike_f": 80.7,
+            "uv": 9.0
+        },
+        "forecast": {
+            "forecastday": [
+                {
+                    "date": "2021-08-13",
+                    "day": {
+                        "maxtemp_c": 40.9,
+                        "maxtemp_f": 105.6,
+                        "mintemp_c": 23.2,
+                        "mintemp_f": 73.8,
+                        "daily_chance_of_rain": 0,
+                        "daily_chance_of_snow": 0,
+                        "condition": {
+                            "text": "Partly cloudy"
+                        },
+                        "uv": 8.0
+                    },
+                    "astro": {
+                        "sunrise": "06:09 AM",
+                        "sunset": "08:20 PM"
+                    },
+                    "hour": [
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        }
+                    ]
+                },
+                {
+                    "date": "2021-08-14",
+                    "day": {
+                        "maxtemp_c": 38.7,
+                        "maxtemp_f": 101.7,
+                        "mintemp_c": 22.8,
+                        "mintemp_f": 73.0,
+                        "daily_chance_of_rain": 0,
+                        "daily_chance_of_snow": 0,
+                        "condition": {
+                            "text": "Partly cloudy"
+                        },
+                        "uv": 8.0
+                    },
+                    "astro": {
+                        "sunrise": "06:10 AM",
+                        "sunset": "08:19 PM"
+                    },
+                    "hour": [
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        }
+                    ]
+                },
+                {
+                    "date": "2021-08-15",
+                    "day": {
+                        "maxtemp_c": 39.9,
+                        "maxtemp_f": 103.8,
+                        "mintemp_c": 22.4,
+                        "mintemp_f": 72.3,
+                        "daily_chance_of_rain": 0,
+                        "daily_chance_of_snow": 0,
+                        "condition": {
+                            "text": "Partly cloudy"
+                        },
+                        "uv": 8.0
+                    },
+                    "astro": {
+                        "sunrise": "06:12 AM",
+                        "sunset": "08:17 PM"
+                    },
+                    "hour": [
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        },
+                        {
+                            "condition": {
+                                
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }"#;
+
+    let wf: WeatherForecast = serde_json::from_str(data_long)?;
     println!("{:#?}", wf);
 
     // 5. Style and format data
