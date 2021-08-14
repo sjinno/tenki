@@ -1,6 +1,7 @@
 use dotenv;
-use form_urlencoded::Serializer;
-use serde_json::Value;
+// use form_urlencoded::Serializer;
+use serde_derive::Deserialize;
+// use serde_json::Value;
 use structopt::StructOpt;
 
 #[allow(dead_code)]
@@ -19,10 +20,42 @@ struct Cli {
     location: String,
 }
 
-// #[derive(Deserialize)]
-// struct WeatherForecast {
-//     location:
-// }
+#[derive(Deserialize, Debug)]
+struct WeatherForecast {
+    current: Current,
+    location: Location,
+}
+
+#[derive(Deserialize, Debug)]
+struct Condition {
+    text: String,
+}
+
+#[derive(Deserialize, Debug)]
+struct Location {
+    name: String,
+    region: String,
+    country: String,
+    localtime: String,
+}
+
+#[derive(Deserialize, Debug)]
+struct Current {
+    last_updated: String,
+    temp_c: f32,
+    temp_f: f32,
+    is_day: u8,
+    condition: Condition,
+    wind_mph: f32,
+    wind_kph: f32,
+    precip_mm: f32,
+    precip_in: f32,
+    humidity: u8,
+    cloud: u8,
+    feelslike_c: f32,
+    feelslike_f: f32,
+    uv: f32,
+}
 
 #[allow(dead_code, unused_variables)]
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -57,6 +90,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // let body_json = reqwest::blocking::get(url)?.text()?;
     // let value: Value = serde_json::from_str(&body_json)?;
     // println!("{:?}", value);
+
     let data = r#"{
         "location": {
             "name": "Nagasaki-Shi",
@@ -88,8 +122,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             "uv": 6.0
         }
     }"#;
-    let v: Value = serde_json::from_str(data)?;
-    println!("{:?}", v);
+    // let v: Value = serde_json::from_str(data)?;
+    // println!("{:?}", v);
+    let wf: WeatherForecast = serde_json::from_str(data)?;
+    println!("{:#?}", wf);
 
     // 5. Style and format data
 
