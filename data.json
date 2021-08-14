@@ -1,0 +1,31 @@
+{
+    "location": {
+        "name": "Nagasaki-Shi",
+        "region": "Nagasaki",
+        "country": "Japan",
+        "lat": 32.74,
+        "lon": 129.87,
+        "tz_id": "Asia/Tokyo",
+        "localtime_epoch": 1628905254,
+        "localtime": "2021-08-14 10:40"
+    },
+    "current": {
+        "last_updated": "2021-08-14 10:30",
+        "temp_c": 28.0,
+        "temp_f": 82.4,
+        "is_day": 1,
+        "condition": {
+            "text": "Light rain"
+        },
+        "wind_mph": 32.2,
+        "wind_kph": 51.8,
+        "wind_degree": 210,
+        "precip_mm": 67.7,
+        "precip_in": 2.67,
+        "humidity": 84,
+        "cloud": 75,
+        "feelslike_c": 35.2,
+        "feelslike_f": 95.3,
+        "uv": 6.0
+    }
+}
