@@ -1,3 +1,5 @@
+use std::os::raw::c_long;
+
 use dotenv;
 use form_urlencoded::Serializer;
 use serde_derive::Deserialize;
@@ -5,9 +7,25 @@ use serde_derive::Deserialize;
 use structopt::StructOpt;
 
 #[allow(dead_code)]
-enum WeatherRequest {
+#[derive(Debug)]
+enum WeatherForecast {
     Current,
-    Future,
+    Forecast(u8),
+}
+
+#[derive(Debug)]
+struct WeatherRequest<'a> {
+    days: WeatherForecast,
+    location: &'a str,
+}
+
+impl<'a> WeatherRequest<'a> {
+    fn new(days: u8, location: &'a str) -> Self {
+        Self {
+            days: days.into(),
+            location: location,
+        }
+    }
 }
 
 /// Nicely outputs the weather forecast of the requested date or dates.
@@ -20,8 +38,18 @@ struct Cli {
     location: String,
 }
 
+impl Into<WeatherForecast> for u8 {
+    fn into(self) -> WeatherForecast {
+        if self == 0 {
+            WeatherForecast::Current
+        } else {
+            WeatherForecast::Forecast(self)
+        }
+    }
+}
+
 #[derive(Deserialize, Debug)]
-struct WeatherForecast {
+struct Weather {
     location: Location,
     current: Current,
     forecast: Option<Forecast>,
@@ -87,6 +115,18 @@ struct Forecast {
     forecastday: Vec<ForecastDay>,
 }
 
+fn text_transform_capitalize<'a>(mut chars: std::str::Chars) -> String {
+    let mut new_string = String::new();
+    // Capitalize the initial letter.
+    if let Some(c) = chars.next() {
+        new_string = c.to_ascii_uppercase().to_string();
+    }
+    // Lowercase the rest of the letters.
+    let rest = chars.map(|c| c.to_ascii_lowercase()).collect::<String>();
+    new_string.push_str(&rest);
+    new_string
+}
+
 #[allow(dead_code, unused_variables)]
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 1. Constant values
@@ -100,8 +140,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // println!("{:?}", value);
 
     // 3. Read arguments
-    let location = "Portland";
-    println!("{:?}", Cli::from_args());
+    // let location = "Portland";
+    // println!("{:?}", Cli::from_args());
+    let args = Cli::from_args();
+    // let req = WeatherRequest::new(args.days, &args.location);
+    let location = text_transform_capitalize(args.location.chars());
+    let req = WeatherRequest::new(args.days, &location);
+    println!("{:?}", req);
+    // println!("{:?}", args.days);
+
+    // let req: WeatherRequest = WeatherRequest::new();
 
     // // 4. Request data
     // // Current forecast URL:
@@ -117,510 +165,144 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // let url = format!("{}/current.json?{}", BASE_URL, parameters);
     // // println!("{}", url);
-    // let wf: WeatherForecast = reqwest::blocking::get(url)?.json()?;
-    // println!("{:#?}", wf);
+    // let w: Weather = reqwest::blocking::get(url)?.json()?;
+    // println!("{:#?}", w);
 
-    // let value: Value = serde_json::from_str(&body_json)?;
-    // println!("{:?}", value);
+    // // let value: Value = serde_json::from_str(&body_json)?;
+    // // println!("{:?}", value);
 
-    // TEST DATA
-    let data = r#"{
-        "location": {
-            "name": "Nagasaki-Shi",
-            "region": "Nagasaki",
-            "country": "Japan",
-            "lat": 32.74,
-            "lon": 129.87,
-            "tz_id": "Asia/Tokyo",
-            "localtime_epoch": 1628905254,
-            "localtime": "2021-08-14 10:40"
-        },
-        "current": {
-            "last_updated": "2021-08-14 10:30",
-            "temp_c": 28.0,
-            "temp_f": 82.4,
-            "is_day": 1,
-            "condition": {
-                "text": "Light rain"
-            },
-            "wind_mph": 32.2,
-            "wind_kph": 51.8,
-            "wind_degree": 210,
-            "precip_mm": 67.7,
-            "precip_in": 2.67,
-            "humidity": 84,
-            "cloud": 75,
-            "feelslike_c": 35.2,
-            "feelslike_f": 95.3,
-            "uv": 6.0
-        }
-    }"#;
-    // // With serde_json:
-    // let v: Value = serde_json::from_str(data)?;
-    // println!("{:?}", v);
-    let wf: WeatherForecast = serde_json::from_str(data)?;
-    println!("{:#?}", wf);
+    // // TEST DATA
+    // let data = r#"{
+    //     "location": {
+    //         "name": "Nagasaki-Shi",
+    //         "region": "Nagasaki",
+    //         "country": "Japan",
+    //         "lat": 32.74,
+    //         "lon": 129.87,
+    //         "tz_id": "Asia/Tokyo",
+    //         "localtime_epoch": 1628905254,
+    //         "localtime": "2021-08-14 10:40"
+    //     },
+    //     "current": {
+    //         "last_updated": "2021-08-14 10:30",
+    //         "temp_c": 28.0,
+    //         "temp_f": 82.4,
+    //         "is_day": 1,
+    //         "condition": {
+    //             "text": "Light rain"
+    //         },
+    //         "wind_mph": 32.2,
+    //         "wind_kph": 51.8,
+    //         "wind_degree": 210,
+    //         "precip_mm": 67.7,
+    //         "precip_in": 2.67,
+    //         "humidity": 84,
+    //         "cloud": 75,
+    //         "feelslike_c": 35.2,
+    //         "feelslike_f": 95.3,
+    //         "uv": 6.0
+    //     }
+    // }"#;
+    // // // With serde_json:
+    // // let v: Value = serde_json::from_str(data)?;
+    // // println!("{:?}", v);
+    // let w: Weather = serde_json::from_str(data)?;
+    // println!("{:#?}", w);
 
-    let data_long = r#"{
-        "location": {
-            "name": "Portland",
-            "region": "Oregon",
-            "country": "United States of America",
-            "lat": 45.52,
-            "lon": -122.68,
-            "tz_id": "America/Los_Angeles",
-            "localtime_epoch": 1628918055,
-            "localtime": "2021-08-13 22:14"
-        },
-        "current": {
-            "last_updated": "2021-08-13 21:00",
-            "temp_c": 28.3,
-            "temp_f": 82.9,
-            "is_day": 0,
-            "condition": {
-                "text": "Partly cloudy"
-            },
-            "wind_mph": 3.8,
-            "wind_kph": 6.1,
-            "precip_mm": 0.0,
-            "precip_in": 0.0,
-            "humidity": 59,
-            "cloud": 50,
-            "feelslike_c": 27.0,
-            "feelslike_f": 80.7,
-            "uv": 9.0
-        },
-        "forecast": {
-            "forecastday": [
-                {
-                    "date": "2021-08-13",
-                    "day": {
-                        "maxtemp_c": 40.9,
-                        "maxtemp_f": 105.6,
-                        "mintemp_c": 23.2,
-                        "mintemp_f": 73.8,
-                        "daily_chance_of_rain": 0,
-                        "daily_chance_of_snow": 0,
-                        "condition": {
-                            "text": "Partly cloudy"
-                        },
-                        "uv": 8.0
-                    },
-                    "astro": {
-                        "sunrise": "06:09 AM",
-                        "sunset": "08:20 PM"
-                    },
-                    "hour": [
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        }
-                    ]
-                },
-                {
-                    "date": "2021-08-14",
-                    "day": {
-                        "maxtemp_c": 38.7,
-                        "maxtemp_f": 101.7,
-                        "mintemp_c": 22.8,
-                        "mintemp_f": 73.0,
-                        "daily_chance_of_rain": 0,
-                        "daily_chance_of_snow": 0,
-                        "condition": {
-                            "text": "Partly cloudy"
-                        },
-                        "uv": 8.0
-                    },
-                    "astro": {
-                        "sunrise": "06:10 AM",
-                        "sunset": "08:19 PM"
-                    },
-                    "hour": [
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        }
-                    ]
-                },
-                {
-                    "date": "2021-08-15",
-                    "day": {
-                        "maxtemp_c": 39.9,
-                        "maxtemp_f": 103.8,
-                        "mintemp_c": 22.4,
-                        "mintemp_f": 72.3,
-                        "daily_chance_of_rain": 0,
-                        "daily_chance_of_snow": 0,
-                        "condition": {
-                            "text": "Partly cloudy"
-                        },
-                        "uv": 8.0
-                    },
-                    "astro": {
-                        "sunrise": "06:12 AM",
-                        "sunset": "08:17 PM"
-                    },
-                    "hour": [
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        },
-                        {
-                            "condition": {
-                                
-                            }
-                        }
-                    ]
-                }
-            ]
-        }
-    }"#;
+    // let data_long = r#"{
+    //     "location": {
+    //         "name": "Portland",
+    //         "region": "Oregon",
+    //         "country": "United States of America",
+    //         "lat": 45.52,
+    //         "lon": -122.68,
+    //         "tz_id": "America/Los_Angeles",
+    //         "localtime_epoch": 1628918055,
+    //         "localtime": "2021-08-13 22:14"
+    //     },
+    //     "current": {
+    //         "last_updated": "2021-08-13 21:00",
+    //         "temp_c": 28.3,
+    //         "temp_f": 82.9,
+    //         "is_day": 0,
+    //         "condition": {
+    //             "text": "Partly cloudy"
+    //         },
+    //         "wind_mph": 3.8,
+    //         "wind_kph": 6.1,
+    //         "precip_mm": 0.0,
+    //         "precip_in": 0.0,
+    //         "humidity": 59,
+    //         "cloud": 50,
+    //         "feelslike_c": 27.0,
+    //         "feelslike_f": 80.7,
+    //         "uv": 9.0
+    //     },
+    //     "forecast": {
+    //         "forecastday": [
+    //             {
+    //                 "date": "2021-08-13",
+    //                 "day": {
+    //                     "maxtemp_c": 40.9,
+    //                     "maxtemp_f": 105.6,
+    //                     "mintemp_c": 23.2,
+    //                     "mintemp_f": 73.8,
+    //                     "daily_chance_of_rain": 0,
+    //                     "daily_chance_of_snow": 0,
+    //                     "condition": {
+    //                         "text": "Partly cloudy"
+    //                     },
+    //                     "uv": 8.0
+    //                 },
+    //                 "astro": {
+    //                     "sunrise": "06:09 AM",
+    //                     "sunset": "08:20 PM"
+    //                 }
+    //             },
+    //             {
+    //                 "date": "2021-08-14",
+    //                 "day": {
+    //                     "maxtemp_c": 38.7,
+    //                     "maxtemp_f": 101.7,
+    //                     "mintemp_c": 22.8,
+    //                     "mintemp_f": 73.0,
+    //                     "daily_chance_of_rain": 0,
+    //                     "daily_chance_of_snow": 0,
+    //                     "condition": {
+    //                         "text": "Partly cloudy"
+    //                     },
+    //                     "uv": 8.0
+    //                 },
+    //                 "astro": {
+    //                     "sunrise": "06:10 AM",
+    //                     "sunset": "08:19 PM"
+    //                 }
+    //             },
+    //             {
+    //                 "date": "2021-08-15",
+    //                 "day": {
+    //                     "maxtemp_c": 39.9,
+    //                     "maxtemp_f": 103.8,
+    //                     "mintemp_c": 22.4,
+    //                     "mintemp_f": 72.3,
+    //                     "daily_chance_of_rain": 0,
+    //                     "daily_chance_of_snow": 0,
+    //                     "condition": {
+    //                         "text": "Partly cloudy"
+    //                     },
+    //                     "uv": 8.0
+    //                 },
+    //                 "astro": {
+    //                     "sunrise": "06:12 AM",
+    //                     "sunset": "08:17 PM"
+    //                 }
+    //             }
+    //         ]
+    //     }
+    // }"#;
 
-    let wf: WeatherForecast = serde_json::from_str(data_long)?;
-    println!("{:#?}", wf);
+    // let w: Weather = serde_json::from_str(data_long)?;
+    // println!("{:#?}", w);
 
     // 5. Style and format data
 
