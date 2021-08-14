@@ -4,18 +4,23 @@ use structopt::StructOpt;
 /// Nicely outputs the weather forecast of the requested date or dates.
 #[derive(StructOpt, Debug)]
 pub struct Cli {
-    /// Number of days. Default 0. Max 3.
-    days: u8,
-
     /// Desired location.
     location: String,
+
+    /// Number of days. Default 0. Max 3.
+    days: Option<u8>,
 }
 
 // Extracts args to `WeatherRequest` format.
 pub fn extract_args() -> WeatherRequest {
     let args = Cli::from_args();
+    let days = match args.days {
+        Some(n) if n <= 3 => 3,
+        None => 0,
+        _ => 3,
+    };
     let location = text_transform_capitalize(args.location.chars());
-    WeatherRequest::new(args.days, location)
+    WeatherRequest::new(days, location)
 }
 
 // Capitalizes the initial letter and lowercase the rest.
