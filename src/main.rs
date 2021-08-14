@@ -1,5 +1,3 @@
-use std::os::raw::c_long;
-
 use dotenv;
 use form_urlencoded::Serializer;
 use serde_derive::Deserialize;
@@ -151,12 +149,37 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // let req: WeatherRequest = WeatherRequest::new();
 
-    // // 4. Request data
-    // // Current forecast URL:
-    // // https://api.weatherapi.com/v1/current.json?key={KEY}&q={LOCATION}&aqi=no
+    // 4. Request data
+    // Current forecast URL:
+    // https://api.weatherapi.com/v1/current.json?key={KEY}&q={LOCATION}&aqi=no
 
-    // // Forecast URL:
-    // // https://api.weatherapi.com/v1/forecast.json?key={KEY}&q={LOCATION}&days={N}&aqi=no&alerts=no
+    // Forecast URL:
+    // https://api.weatherapi.com/v1/forecast.json?key={KEY}&q={LOCATION}&days={N}&aqi=no&alerts=no
+
+    let params;
+    match req.days {
+        WeatherForecast::Current => {
+            params = Serializer::new(String::new())
+                .append_pair("key", value)
+                .append_pair("q", req.location)
+                .append_pair("aqi", "no")
+                .finish();
+        }
+        WeatherForecast::Forecast(n) => {
+            params = Serializer::new(String::new())
+                .append_pair("key", value)
+                .append_pair("q", req.location)
+                .append_pair("days", &n.to_string())
+                .append_pair("aqi", "no")
+                .append_pair("alerts", "no")
+                .finish();
+        }
+    }
+
+    let url: &str = &format!("{}/current.json?{}", BASE_URL, params);
+    let w = reqwest::blocking::get(url)?.json()?;
+    println!("{:#?}", w);
+
     // let parameters = Serializer::new(String::new())
     //     .append_pair("key", value)
     //     .append_pair("q", location)
