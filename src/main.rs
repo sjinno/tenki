@@ -10,12 +10,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let weather_request = cli::extract_args();
     println!("{:#?}", weather_request);
     let url = processor::create_url(BASE_URL, &weather_request);
-    let response = request::get(&url);
-    println!("{:#?}", response);
+    // println!("{:?}", url);
+    let response: Weather = request::get(&url)?;
+    println!("{}", response);
+
+    // let body: Weather = serde_json::from_reader(std::fs::File::open("data_long.json")?)?;
+    // println!("{}", body);
+    // let body: Weather = serde_json::from_reader(std::fs::File::open("data_long.json")?)?;
+    // println!("{}", body);
 
     // 5. Style and format data
-
     // 6. Print formatted response
-
     Ok(())
 }

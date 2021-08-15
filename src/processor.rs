@@ -22,6 +22,7 @@ pub fn create_url(base_url: &str, wr: &WeatherRequest) -> String {
                 .append_pair("q", &wr.location)
                 .append_pair("aqi", "no")
                 .finish();
+            format!("{}/current.json?{}", base_url, params)
         }
         WeatherForecast::Forecast(n) => {
             params = Serializer::new(String::new())
@@ -31,8 +32,7 @@ pub fn create_url(base_url: &str, wr: &WeatherRequest) -> String {
                 .append_pair("aqi", "no")
                 .append_pair("alerts", "no")
                 .finish();
+            format!("{}/forecast.json?{}", base_url, params)
         }
     }
-
-    format!("{}/current.json?{}", base_url, params)
 }
