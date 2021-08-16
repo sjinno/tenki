@@ -30,13 +30,15 @@ impl From<u8> for WeatherForecast {
 pub struct WeatherRequest {
     pub days: WeatherForecast,
     pub location: String,
+    pub aqi: bool,
 }
 
 impl WeatherRequest {
-    pub fn new(days: u8, location: String) -> Self {
+    pub fn new(days: u8, location: String, aqi: bool) -> Self {
         Self {
             days: days.into(),
             location,
+            aqi,
         }
     }
 }
