@@ -6,7 +6,7 @@ use term_table::{
     Table,
 };
 
-use std::fmt::{Display, Formatter, Result};
+use std::fmt::{Display, Formatter, Result as FmtResult};
 
 #[derive(Debug)]
 pub enum WeatherForecast {
@@ -207,16 +207,8 @@ impl Weather {
         self.set_forecast_header(table);
         // date, temp (c), condition, wind (kph), precip (mm), humidity, cloud, feels like (c), uv
         // Total 9 columns
-        // 3.
+        // 3. Set data
         self.set_forecast_data(table);
-        // table.add_row(Row::new(vec![
-        //     TableCell::new("This is left aligned text"),
-        //     TableCell::new_with_alignment(
-        //         "This is right aligned text",
-        //         1,
-        //         Alignment::Right,
-        //     ),
-        // ]));
     }
 
     fn set_forecast_title(&self, table: &mut Table) {
@@ -280,7 +272,7 @@ impl Weather {
 }
 
 impl Display for Weather {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         write!(f, "{}", &self.create_table_format())
     }
 }

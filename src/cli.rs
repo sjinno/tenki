@@ -11,7 +11,7 @@ pub struct Cli {
     days: Option<u8>,
 }
 
-// Extracts args to `WeatherRequest` format.
+// Extracts args into `WeatherRequest` format.
 pub fn extract_args() -> WeatherRequest {
     let args = Cli::from_args();
     let days = match args.days {
