@@ -1,0 +1,896 @@
+{
+    "_test_call": "https://api.weatherapi.com/v1/forecast.json?key=a41cee45c3fc432b9c4200151211308&q=nEw_yoRK&days=3&aqi=yes&alerts=no",
+    "location": {
+        "name": "New York",
+        "region": "New York",
+        "country": "United States of America",
+        "lat": 40.71,
+        "lon": -74.01,
+        "tz_id": "America/New_York",
+        "localtime_epoch": 1629140910,
+        "localtime": "2021-08-16 15:08"
+    },
+    "current": {
+        "last_updated": "2021-08-16 14:00",
+        "temp_c": 26.7,
+        "temp_f": 80.1,
+        "is_day": 1,
+        "condition": {
+            "text": "Partly cloudy"
+        },
+        "wind_mph": 0.0,
+        "wind_kph": 0.0,
+        "precip_mm": 0.0,
+        "precip_in": 0.0,
+        "humidity": 52,
+        "cloud": 75,
+        "feelslike_c": 26.6,
+        "feelslike_f": 79.9,
+        "uv": 7.0,
+        "air_quality": {
+            "co": 487.29998779296875,
+            "no2": 46.599998474121094,
+            "o3": 141.60000610351562,
+            "so2": 19.799999237060547,
+            "pm2_5": 18.600000381469727,
+            "pm10": 22.399999618530273,
+            "us-epa-index": 2,
+            "gb-defra-index": 2
+        }
+    },
+    "forecast": {
+        "forecastday": [{
+                "date": "2021-08-16",
+                "day": {
+                    "maxtemp_c": 28.6,
+                    "maxtemp_f": 83.5,
+                    "mintemp_c": 23.2,
+                    "mintemp_f": 73.8,
+                    "daily_chance_of_rain": 0,
+                    "daily_chance_of_snow": 0,
+                    "condition": {
+                        "text": "Partly cloudy"
+                    },
+                    "uv": 8.0
+                },
+                "astro": {
+                    "sunrise": "06:08 AM",
+                    "sunset": "07:52 PM"
+                },
+                "hour": [{
+                        "time": "2021-08-16 00:00",
+                        "temp_c": 25.5,
+                        "condition": {
+
+                        },
+                        "humidity": 39,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-16 01:00",
+                        "temp_c": 25.1,
+                        "condition": {
+
+                        },
+                        "humidity": 39,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-16 02:00",
+                        "temp_c": 24.6,
+                        "condition": {
+
+                        },
+                        "humidity": 38,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-16 03:00",
+                        "temp_c": 24.0,
+                        "condition": {
+
+                        },
+                        "humidity": 41,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-16 04:00",
+                        "temp_c": 23.4,
+                        "condition": {
+
+                        },
+                        "humidity": 43,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-16 05:00",
+                        "temp_c": 22.8,
+                        "condition": {
+
+                        },
+                        "humidity": 45,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-16 06:00",
+                        "temp_c": 22.7,
+                        "condition": {
+
+                        },
+                        "humidity": 46,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-16 07:00",
+                        "temp_c": 22.7,
+                        "condition": {
+
+                        },
+                        "humidity": 46,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 6.0
+                    },
+                    {
+                        "time": "2021-08-16 08:00",
+                        "temp_c": 22.6,
+                        "condition": {
+
+                        },
+                        "humidity": 47,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 6.0
+                    },
+                    {
+                        "time": "2021-08-16 09:00",
+                        "temp_c": 24.0,
+                        "condition": {
+
+                        },
+                        "humidity": 45,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 6.0
+                    },
+                    {
+                        "time": "2021-08-16 10:00",
+                        "temp_c": 25.4,
+                        "condition": {
+
+                        },
+                        "humidity": 43,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 7.0
+                    },
+                    {
+                        "time": "2021-08-16 11:00",
+                        "temp_c": 26.8,
+                        "condition": {
+
+                        },
+                        "humidity": 40,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 7.0
+                    },
+                    {
+                        "time": "2021-08-16 12:00",
+                        "temp_c": 27.5,
+                        "condition": {
+
+                        },
+                        "humidity": 39,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 7.0
+                    },
+                    {
+                        "time": "2021-08-16 13:00",
+                        "temp_c": 28.1,
+                        "condition": {
+
+                        },
+                        "humidity": 39,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 7.0
+                    },
+                    {
+                        "time": "2021-08-16 14:00",
+                        "temp_c": 28.8,
+                        "condition": {
+
+                        },
+                        "humidity": 38,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 7.0
+                    },
+                    {
+                        "time": "2021-08-16 15:00",
+                        "temp_c": 28.2,
+                        "condition": {
+
+                        },
+                        "humidity": 40,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 7.0
+                    },
+                    {
+                        "time": "2021-08-16 16:00",
+                        "temp_c": 27.5,
+                        "condition": {
+
+                        },
+                        "humidity": 43,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 7.0
+                    },
+                    {
+                        "time": "2021-08-16 17:00",
+                        "temp_c": 26.9,
+                        "condition": {
+
+                        },
+                        "humidity": 45,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 7.0
+                    },
+                    {
+                        "time": "2021-08-16 18:00",
+                        "temp_c": 26.2,
+                        "condition": {
+
+                        },
+                        "humidity": 48,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 7.0
+                    },
+                    {
+                        "time": "2021-08-16 19:00",
+                        "temp_c": 25.6,
+                        "condition": {
+
+                        },
+                        "humidity": 51,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 7.0
+                    },
+                    {
+                        "time": "2021-08-16 20:00",
+                        "temp_c": 24.9,
+                        "condition": {
+
+                        },
+                        "humidity": 54,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-16 21:00",
+                        "temp_c": 24.7,
+                        "condition": {
+
+                        },
+                        "humidity": 56,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-16 22:00",
+                        "temp_c": 24.4,
+                        "condition": {
+
+                        },
+                        "humidity": 57,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-16 23:00",
+                        "temp_c": 24.2,
+                        "condition": {
+
+                        },
+                        "humidity": 59,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    }
+                ]
+            },
+            {
+                "date": "2021-08-17",
+                "day": {
+                    "maxtemp_c": 26.9,
+                    "maxtemp_f": 80.4,
+                    "mintemp_c": 24.0,
+                    "mintemp_f": 75.2,
+                    "daily_chance_of_rain": 0,
+                    "daily_chance_of_snow": 0,
+                    "condition": {
+                        "text": "Partly cloudy"
+                    },
+                    "uv": 5.0
+                },
+                "astro": {
+                    "sunrise": "06:09 AM",
+                    "sunset": "07:51 PM"
+                },
+                "hour": [{
+                        "time": "2021-08-17 00:00",
+                        "temp_c": 24.1,
+                        "condition": {
+
+                        },
+                        "humidity": 61,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-17 01:00",
+                        "temp_c": 24.1,
+                        "condition": {
+
+                        },
+                        "humidity": 63,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-17 02:00",
+                        "temp_c": 24.0,
+                        "condition": {
+
+                        },
+                        "humidity": 65,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-17 03:00",
+                        "temp_c": 23.9,
+                        "condition": {
+
+                        },
+                        "humidity": 66,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-17 04:00",
+                        "temp_c": 23.8,
+                        "condition": {
+
+                        },
+                        "humidity": 67,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-17 05:00",
+                        "temp_c": 23.7,
+                        "condition": {
+
+                        },
+                        "humidity": 69,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-17 06:00",
+                        "temp_c": 23.8,
+                        "condition": {
+
+                        },
+                        "humidity": 68,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-17 07:00",
+                        "temp_c": 23.9,
+                        "condition": {
+
+                        },
+                        "humidity": 68,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 6.0
+                    },
+                    {
+                        "time": "2021-08-17 08:00",
+                        "temp_c": 24.0,
+                        "condition": {
+
+                        },
+                        "humidity": 67,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 5.0
+                    },
+                    {
+                        "time": "2021-08-17 09:00",
+                        "temp_c": 24.7,
+                        "condition": {
+
+                        },
+                        "humidity": 64,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 6.0
+                    },
+                    {
+                        "time": "2021-08-17 10:00",
+                        "temp_c": 25.5,
+                        "condition": {
+
+                        },
+                        "humidity": 61,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 6.0
+                    },
+                    {
+                        "time": "2021-08-17 11:00",
+                        "temp_c": 26.2,
+                        "condition": {
+
+                        },
+                        "humidity": 58,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 7.0
+                    },
+                    {
+                        "time": "2021-08-17 12:00",
+                        "temp_c": 25.9,
+                        "condition": {
+
+                        },
+                        "humidity": 59,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 6.0
+                    },
+                    {
+                        "time": "2021-08-17 13:00",
+                        "temp_c": 25.7,
+                        "condition": {
+
+                        },
+                        "humidity": 60,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 7.0
+                    },
+                    {
+                        "time": "2021-08-17 14:00",
+                        "temp_c": 25.4,
+                        "condition": {
+
+                        },
+                        "humidity": 61,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 6.0
+                    },
+                    {
+                        "time": "2021-08-17 15:00",
+                        "temp_c": 25.7,
+                        "condition": {
+
+                        },
+                        "humidity": 61,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 7.0
+                    },
+                    {
+                        "time": "2021-08-17 16:00",
+                        "temp_c": 25.9,
+                        "condition": {
+
+                        },
+                        "humidity": 60,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 6.0
+                    },
+                    {
+                        "time": "2021-08-17 17:00",
+                        "temp_c": 26.2,
+                        "condition": {
+
+                        },
+                        "humidity": 60,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "uv": 7.0
+                    },
+                    {
+                        "time": "2021-08-17 18:00",
+                        "temp_c": 25.6,
+                        "condition": {
+
+                        },
+                        "humidity": 63,
+                        "chance_of_rain": 20,
+                        "chance_of_snow": 0,
+                        "uv": 6.0
+                    },
+                    {
+                        "time": "2021-08-17 19:00",
+                        "temp_c": 25.1,
+                        "condition": {
+
+                        },
+                        "humidity": 66,
+                        "chance_of_rain": 41,
+                        "chance_of_snow": 0,
+                        "uv": 7.0
+                    },
+                    {
+                        "time": "2021-08-17 20:00",
+                        "temp_c": 24.5,
+                        "condition": {
+
+                        },
+                        "humidity": 69,
+                        "chance_of_rain": 61,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-17 21:00",
+                        "temp_c": 24.3,
+                        "condition": {
+
+                        },
+                        "humidity": 71,
+                        "chance_of_rain": 63,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-17 22:00",
+                        "temp_c": 24.1,
+                        "condition": {
+
+                        },
+                        "humidity": 73,
+                        "chance_of_rain": 66,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-17 23:00",
+                        "temp_c": 23.9,
+                        "condition": {
+
+                        },
+                        "humidity": 75,
+                        "chance_of_rain": 68,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    }
+                ]
+            },
+            {
+                "date": "2021-08-18",
+                "day": {
+                    "maxtemp_c": 25.1,
+                    "maxtemp_f": 77.2,
+                    "mintemp_c": 23.8,
+                    "mintemp_f": 74.8,
+                    "daily_chance_of_rain": 78,
+                    "daily_chance_of_snow": 0,
+                    "condition": {
+                        "text": "Moderate rain"
+                    },
+                    "uv": 2.0
+                },
+                "astro": {
+                    "sunrise": "06:09 AM",
+                    "sunset": "07:50 PM"
+                },
+                "hour": [{
+                        "time": "2021-08-18 00:00",
+                        "temp_c": 23.9,
+                        "condition": {
+
+                        },
+                        "humidity": 75,
+                        "chance_of_rain": 72,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-18 01:00",
+                        "temp_c": 23.9,
+                        "condition": {
+
+                        },
+                        "humidity": 75,
+                        "chance_of_rain": 77,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-18 02:00",
+                        "temp_c": 23.9,
+                        "condition": {
+
+                        },
+                        "humidity": 76,
+                        "chance_of_rain": 81,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-18 03:00",
+                        "temp_c": 23.8,
+                        "condition": {
+
+                        },
+                        "humidity": 77,
+                        "chance_of_rain": 75,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-18 04:00",
+                        "temp_c": 23.6,
+                        "condition": {
+
+                        },
+                        "humidity": 78,
+                        "chance_of_rain": 68,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-18 05:00",
+                        "temp_c": 23.5,
+                        "condition": {
+
+                        },
+                        "humidity": 79,
+                        "chance_of_rain": 62,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-18 06:00",
+                        "temp_c": 23.8,
+                        "condition": {
+
+                        },
+                        "humidity": 78,
+                        "chance_of_rain": 61,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-18 07:00",
+                        "temp_c": 24.0,
+                        "condition": {
+
+                        },
+                        "humidity": 77,
+                        "chance_of_rain": 61,
+                        "chance_of_snow": 0,
+                        "uv": 5.0
+                    },
+                    {
+                        "time": "2021-08-18 08:00",
+                        "temp_c": 24.3,
+                        "condition": {
+
+                        },
+                        "humidity": 76,
+                        "chance_of_rain": 60,
+                        "chance_of_snow": 0,
+                        "uv": 5.0
+                    },
+                    {
+                        "time": "2021-08-18 09:00",
+                        "temp_c": 24.3,
+                        "condition": {
+
+                        },
+                        "humidity": 75,
+                        "chance_of_rain": 66,
+                        "chance_of_snow": 0,
+                        "uv": 5.0
+                    },
+                    {
+                        "time": "2021-08-18 10:00",
+                        "temp_c": 24.4,
+                        "condition": {
+
+                        },
+                        "humidity": 75,
+                        "chance_of_rain": 73,
+                        "chance_of_snow": 0,
+                        "uv": 5.0
+                    },
+                    {
+                        "time": "2021-08-18 11:00",
+                        "temp_c": 24.4,
+                        "condition": {
+
+                        },
+                        "humidity": 75,
+                        "chance_of_rain": 79,
+                        "chance_of_snow": 0,
+                        "uv": 5.0
+                    },
+                    {
+                        "time": "2021-08-18 12:00",
+                        "temp_c": 24.5,
+                        "condition": {
+
+                        },
+                        "humidity": 74,
+                        "chance_of_rain": 78,
+                        "chance_of_snow": 0,
+                        "uv": 5.0
+                    },
+                    {
+                        "time": "2021-08-18 13:00",
+                        "temp_c": 24.7,
+                        "condition": {
+
+                        },
+                        "humidity": 73,
+                        "chance_of_rain": 76,
+                        "chance_of_snow": 0,
+                        "uv": 5.0
+                    },
+                    {
+                        "time": "2021-08-18 14:00",
+                        "temp_c": 24.8,
+                        "condition": {
+
+                        },
+                        "humidity": 71,
+                        "chance_of_rain": 75,
+                        "chance_of_snow": 0,
+                        "uv": 5.0
+                    },
+                    {
+                        "time": "2021-08-18 15:00",
+                        "temp_c": 24.6,
+                        "condition": {
+
+                        },
+                        "humidity": 73,
+                        "chance_of_rain": 72,
+                        "chance_of_snow": 0,
+                        "uv": 5.0
+                    },
+                    {
+                        "time": "2021-08-18 16:00",
+                        "temp_c": 24.3,
+                        "condition": {
+
+                        },
+                        "humidity": 74,
+                        "chance_of_rain": 69,
+                        "chance_of_snow": 0,
+                        "uv": 5.0
+                    },
+                    {
+                        "time": "2021-08-18 17:00",
+                        "temp_c": 24.1,
+                        "condition": {
+
+                        },
+                        "humidity": 76,
+                        "chance_of_rain": 66,
+                        "chance_of_snow": 0,
+                        "uv": 5.0
+                    },
+                    {
+                        "time": "2021-08-18 18:00",
+                        "temp_c": 24.0,
+                        "condition": {
+
+                        },
+                        "humidity": 76,
+                        "chance_of_rain": 72,
+                        "chance_of_snow": 0,
+                        "uv": 5.0
+                    },
+                    {
+                        "time": "2021-08-18 19:00",
+                        "temp_c": 23.9,
+                        "condition": {
+
+                        },
+                        "humidity": 76,
+                        "chance_of_rain": 78,
+                        "chance_of_snow": 0,
+                        "uv": 5.0
+                    },
+                    {
+                        "time": "2021-08-18 20:00",
+                        "temp_c": 23.8,
+                        "condition": {
+
+                        },
+                        "humidity": 76,
+                        "chance_of_rain": 84,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-18 21:00",
+                        "temp_c": 23.7,
+                        "condition": {
+
+                        },
+                        "humidity": 77,
+                        "chance_of_rain": 76,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-18 22:00",
+                        "temp_c": 23.6,
+                        "condition": {
+
+                        },
+                        "humidity": 79,
+                        "chance_of_rain": 67,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    },
+                    {
+                        "time": "2021-08-18 23:00",
+                        "temp_c": 23.5,
+                        "condition": {
+
+                        },
+                        "humidity": 80,
+                        "chance_of_rain": 59,
+                        "chance_of_snow": 0,
+                        "uv": 1.0
+                    }
+                ]
+            }
+        ]
+    }
+}
