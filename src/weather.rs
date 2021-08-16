@@ -51,6 +51,11 @@ struct Condition {
     text: String,
 }
 
+// #[derive(Deserialize, Debug)]
+// struct Aqi {
+//     fields: serde_json::Value,
+// }
+
 #[derive(Deserialize, Debug)]
 pub struct Location {
     name: String,
@@ -75,6 +80,7 @@ pub struct Current {
     feelslike_c: f32,
     feelslike_f: f32,
     uv: f32,
+    air_quality: serde_json::Value,
 }
 
 #[derive(Deserialize, Debug)]

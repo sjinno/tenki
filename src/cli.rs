@@ -3,6 +3,7 @@ use structopt::StructOpt;
 
 /// Nicely outputs the weather forecast of the requested date or dates.
 #[derive(StructOpt, Debug)]
+#[structopt(rename_all = "kebab")]
 pub struct Cli {
     /// Desired location.
     location: String,
