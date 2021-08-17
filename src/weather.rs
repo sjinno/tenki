@@ -64,6 +64,15 @@ pub struct Location {
 }
 
 #[derive(Deserialize, Debug)]
+pub struct Hour {
+    time: String,
+    temp_c: f32,
+    chance_of_rain: u8,
+    chance_of_snow: u8,
+    uv: f32,
+}
+
+#[derive(Deserialize, Debug)]
 pub struct Current {
     last_updated: String,
     temp_c: f32,
@@ -88,6 +97,7 @@ struct WeatherSummary {
     maxtemp_f: f32,
     mintemp_c: f32,
     mintemp_f: f32,
+    avghumidity: f32,
     daily_chance_of_rain: u8,
     daily_chance_of_snow: u8,
     condition: Condition,
@@ -105,6 +115,7 @@ struct ForecastDay {
     date: String,
     day: WeatherSummary,
     astro: Astro,
+    hour: Vec<Hour>,
 }
 
 #[derive(Deserialize, Debug)]

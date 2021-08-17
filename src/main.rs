@@ -16,7 +16,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // TEST
     let response: Weather =
         serde_json::from_reader(std::fs::File::open("data/data_air_hour.json")?)?;
-    println!("{:#?}", response);
+    println!("{}", response);
+    // println!("{:#?}", response);
     // println!("{:#?}", response.current.air_quality.get("us-epa-index"));
     Ok(())
 }
