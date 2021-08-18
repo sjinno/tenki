@@ -10,7 +10,7 @@
 
 4. Replace `YourApiKey` with your actual weather API key.
 
-5. And then run with `cargo run <city> -n[=<number>] or --days[=<number>] -a`.
+5. And then run with `cargo run <city> -n[=<number>] -a` or `cargo run <city> --days[=<number>] -a`.
 
     - For example,
 
