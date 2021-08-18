@@ -11,9 +11,13 @@ pub struct Cli {
     #[structopt(short = "n", long = "days", default_value = "1")]
     days: u8,
 
-    /// Opt in air quality
+    /// Opt in air quality.
     #[structopt(short, long)]
     aqi: bool,
+
+    /// Choose to show temperatures in celsius.
+    #[structopt(short, long)]
+    cels: bool,
 }
 
 // Extracts args into `WeatherRequest` format.
@@ -26,5 +30,5 @@ pub fn extract_args() -> WeatherRequest {
     };
     let location = args.location.join(" ");
     // println!("{:#?}", args.aqi);
-    WeatherRequest::new(days, location, args.aqi)
+    WeatherRequest::new(days, location, args.aqi, args.cels)
 }

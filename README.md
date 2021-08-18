@@ -10,7 +10,7 @@
 
 4. Replace `YourApiKey` with your actual weather API key.
 
-5. And then run with `cargo run <city> -n[=<number>] -a` or `cargo run <city> --days[=<number>] -a`.
+5. And then run with `cargo run <city> -n[=<number>] -a` or `cargo run <city> --days[=<number>] -a`. Alternatively, you can also use `zip code` or possibly `IP address` instead of `city`, and it still should work.
 
     - For example,
 
@@ -22,3 +22,7 @@
     # This will generate the same information above as well as air quality information.
     cargo run new york --days=3 -a
     ```
+
+# Updates
+
+Now you can pass `-c` or `--cels` to show temperatures in Celsius.

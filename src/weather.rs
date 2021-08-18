@@ -27,14 +27,34 @@ pub struct WeatherRequest {
     pub days: WeatherForecast,
     pub location: String,
     pub aqi: bool,
+    pub cels: bool,
 }
 
 impl WeatherRequest {
-    pub fn new(days: u8, location: String, aqi: bool) -> Self {
+    pub fn new(days: u8, location: String, aqi: bool, cels: bool) -> Self {
         Self {
             days: days.into(),
             location,
             aqi,
+            cels,
+        }
+    }
+}
+
+#[derive(Deserialize, Debug)]
+pub struct WeatherBuilder {
+    pub location: Location,
+    pub current: Current,
+    pub forecast: Forecast,
+}
+
+impl WeatherBuilder {
+    pub fn build(self, cels: bool) -> Weather {
+        Weather {
+            location: self.location,
+            current: self.current,
+            forecast: self.forecast,
+            cels,
         }
     }
 }
@@ -44,6 +64,7 @@ pub struct Weather {
     pub location: Location,
     pub current: Current,
     pub forecast: Forecast,
+    pub cels: bool,
 }
 
 #[derive(Deserialize, Debug)]
@@ -62,6 +83,7 @@ pub struct Location {
 #[derive(Deserialize, Debug)]
 pub struct Hour {
     time: String,
+    temp_c: f32,
     temp_f: f32,
     chance_of_rain: u8,
     chance_of_snow: u8,
@@ -180,20 +202,31 @@ impl Weather {
 
     fn set_weather_header_1(&self, table: &mut Table) {
         let bold = Style::new().bold();
+        let temp_unit = if self.cels { "TEMP (C)" } else { "TEMP (F)" };
         table.add_row(Row::new(vec![
-            TableCell::new_with_alignment(bold.paint("TEMP (F)"), 1, Alignment::Center),
+            TableCell::new_with_alignment(bold.paint(temp_unit), 1, Alignment::Center),
             TableCell::new_with_alignment(bold.paint("FEELS LIKE"), 1, Alignment::Center),
             TableCell::new_with_alignment(bold.paint("CONDITION"), 1, Alignment::Center),
             TableCell::new_with_alignment(bold.paint("WIND (KPH)"), 1, Alignment::Center),
             TableCell::new_with_alignment(bold.paint("PRECIP (MM)"), 1, Alignment::Center),
-            TableCell::new_with_alignment(bold.paint("HUMIDITY"), 1, Alignment::Center),
+            TableCell::new_with_alignment(bold.paint("HUMIDITY (%)"), 1, Alignment::Center),
         ]));
     }
 
     fn set_weather_data_1(&self, table: &mut Table) {
+        let temp = if self.cels {
+            self.current.temp_c
+        } else {
+            self.current.temp_f
+        };
+        let feelslike = if self.cels {
+            self.current.feelslike_c
+        } else {
+            self.current.feelslike_f
+        };
         table.add_row(Row::new(vec![
-            TableCell::new_with_alignment(self.current.temp_f, 1, Alignment::Center),
-            TableCell::new_with_alignment(self.current.feelslike_f, 1, Alignment::Center),
+            TableCell::new_with_alignment(temp, 1, Alignment::Center),
+            TableCell::new_with_alignment(feelslike, 1, Alignment::Center),
             TableCell::new_with_alignment(&self.current.condition.text, 1, Alignment::Center),
             TableCell::new_with_alignment(self.current.wind_kph, 1, Alignment::Center),
             TableCell::new_with_alignment(self.current.precip_mm, 1, Alignment::Center),
@@ -205,7 +238,7 @@ impl Weather {
         let bold = Style::new().bold();
         // temp (c), condition, wind (kph), precip (mm), humidity, cloud, feels like (c), uv
         table.add_row(Row::new(vec![
-            TableCell::new_with_alignment(bold.paint("CLOUD"), 1, Alignment::Center),
+            TableCell::new_with_alignment(bold.paint("CLOUD (%)"), 1, Alignment::Center),
             TableCell::new_with_alignment(bold.paint("UV"), 1, Alignment::Center),
             TableCell::new_with_alignment(bold.paint("US EPA IDX"), 1, Alignment::Center),
             TableCell::new_with_alignment(bold.paint("PM 2.5"), 1, Alignment::Center),
@@ -311,19 +344,26 @@ impl Weather {
                 Alignment::Center,
             ),
             TableCell::new_with_alignment(bold.paint("CONDITION"), 1, Alignment::Center),
-            TableCell::new_with_alignment(bold.paint("RAIN"), 1, Alignment::Center),
-            TableCell::new_with_alignment(bold.paint("SNOW"), 1, Alignment::Center),
+            TableCell::new_with_alignment(bold.paint("RAIN (%)"), 1, Alignment::Center),
+            TableCell::new_with_alignment(bold.paint("SNOW (%)"), 1, Alignment::Center),
             TableCell::new_with_alignment(bold.paint("UV"), 1, Alignment::Center),
         ]));
     }
 
     fn set_forecast_data(&self, fd: &ForecastDay, table: &mut Table) {
+        let max = if self.cels {
+            fd.day.maxtemp_c
+        } else {
+            fd.day.maxtemp_f
+        };
+        let min = if self.cels {
+            fd.day.mintemp_c
+        } else {
+            fd.day.mintemp_f
+        };
+
         table.add_row(Row::new(vec![
-            TableCell::new_with_alignment(
-                format!("{}\n{}", fd.day.maxtemp_f, fd.day.mintemp_f),
-                1,
-                Alignment::Center,
-            ),
+            TableCell::new_with_alignment(format!("{}\n{}", max, min), 1, Alignment::Center),
             TableCell::new_with_alignment(
                 format!("{}\n{}", &fd.astro.sunrise, &fd.astro.sunset),
                 1,
@@ -367,13 +407,19 @@ impl Weather {
 
     fn set_forecast_hour_data(&self, hr: &[Hour], table: &mut Table) {
         let green = Colour::Green;
+
         let data = hr
             .iter()
             .map(|h| {
+                let temp = if self.cels {
+                    h.temp_c.to_string()
+                } else {
+                    h.temp_f.to_string()
+                };
                 TableCell::new_with_alignment(
                     format!(
                         "TEMP: {}\nRAIN: {}\nSNOW: {}\nUV: {}",
-                        green.paint(&h.temp_f.to_string()),
+                        green.paint(temp),
                         h.chance_of_rain,
                         h.chance_of_snow,
                         h.uv
