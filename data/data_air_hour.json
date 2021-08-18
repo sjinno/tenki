@@ -1,5 +1,4 @@
 {
-    "_test_call": "https://api.weatherapi.com/v1/forecast.json?key=a41cee45c3fc432b9c4200151211308&q=nEw_yoRK&days=3&aqi=yes&alerts=no",
     "location": {
         "name": "New York",
         "region": "New York",

@@ -13,17 +13,12 @@ use std::fmt::{Display, Formatter, Result as FmtResult};
 
 #[derive(Debug)]
 pub enum WeatherForecast {
-    Current,
     Forecast(String),
 }
 
 impl From<u8> for WeatherForecast {
     fn from(n: u8) -> WeatherForecast {
-        if n == 0 {
-            WeatherForecast::Current
-        } else {
-            WeatherForecast::Forecast(n.to_string())
-        }
+        WeatherForecast::Forecast(n.to_string())
     }
 }
 
@@ -48,7 +43,7 @@ impl WeatherRequest {
 pub struct Weather {
     pub location: Location,
     pub current: Current,
-    pub forecast: Option<Forecast>,
+    pub forecast: Forecast,
 }
 
 #[derive(Deserialize, Debug)]
@@ -131,9 +126,8 @@ impl Weather {
         table.style = term_table::TableStyle::simple();
         self.format_location(&mut table);
         self.format_current_weather(&mut table);
-        if self.forecast.is_some() {
-            self.format_forecast(&mut table);
-        }
+        self.format_todays_forecast(&mut table);
+        self.format_forecast(&mut table);
         table.render()
     }
 
@@ -273,6 +267,15 @@ impl Weather {
     }
     //# CURRENT ENDS
 
+    //# TODAY"S FORECAST
+    fn format_todays_forecast(&self, table: &mut Table) {
+        let fd = &self.forecast.forecastday[0];
+        self.set_forecast_title(fd, table);
+        self.set_forecast_header(table);
+        self.set_forecast_data(fd, table);
+        self.set_forecast_hour(&fd.hour, table);
+    }
+
     //# FORECAST
     fn format_forecast(&self, table: &mut Table) {
         self.set_forecast(table);
@@ -280,23 +283,21 @@ impl Weather {
 
     fn set_forecast(&self, table: &mut Table) {
         let yellow = Colour::Yellow.bold();
-        if let Some(forecast) = &self.forecast {
-            table.add_row(Row::new(vec![TableCell::new_with_alignment(
-                yellow.paint(format!(
-                    "WEATHER FORECAST FOR THE NEXT {} DAYS",
-                    forecast.forecastday.len()
-                )),
-                6,
-                Alignment::Center,
-            )]));
+        table.add_row(Row::new(vec![TableCell::new_with_alignment(
+            yellow.paint(format!(
+                "WEATHER FORECAST FOR THE NEXT {} DAYS",
+                self.forecast.forecastday.len() - 1
+            )),
+            6,
+            Alignment::Center,
+        )]));
 
-            forecast.forecastday.iter().for_each(|fd| {
-                self.set_forecast_title(fd, table);
-                self.set_forecast_header(table);
-                self.set_forecast_data(fd, table);
-                self.set_forecast_hour(&fd.hour, table);
-            });
-        }
+        self.forecast.forecastday[1..].iter().for_each(|fd| {
+            self.set_forecast_title(fd, table);
+            self.set_forecast_header(table);
+            self.set_forecast_data(fd, table);
+            self.set_forecast_hour(&fd.hour, table);
+        });
     }
 
     fn set_forecast_title(&self, fd: &ForecastDay, table: &mut Table) {

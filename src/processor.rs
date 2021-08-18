@@ -17,14 +17,6 @@ pub fn create_url(base_url: &str, wr: &WeatherRequest) -> String {
     let aqi = if wr.aqi { "yes" } else { "no" };
     let params;
     match &wr.days {
-        WeatherForecast::Current => {
-            params = Serializer::new(String::new())
-                .append_pair("key", &value)
-                .append_pair("q", &wr.location)
-                .append_pair("aqi", aqi)
-                .finish();
-            format!("{}/current.json?{}", base_url, params)
-        }
         WeatherForecast::Forecast(n) => {
             params = Serializer::new(String::new())
                 .append_pair("key", &value)
