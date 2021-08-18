@@ -15,3 +15,5 @@ Cargo.lock
 
 # extras
 .env
+/data
+AQI-chart-825.jpg
