@@ -355,7 +355,7 @@ impl Weather {
         ]));
     }
 
-    fn set_forecast_hour(&self, hrs: &Vec<Hour>, table: &mut Table) {
+    fn set_forecast_hour(&self, hrs: &[Hour], table: &mut Table) {
         let chunks = hrs.chunks(6);
         chunks.for_each(|hr| {
             // println!("{:#?}", h);
@@ -367,7 +367,7 @@ impl Weather {
     fn set_forecast_hour_header(&self, hr: &[Hour], table: &mut Table) {
         let bold = Style::new().bold();
         let header = hr
-            .into_iter()
+            .iter()
             .map(|h| {
                 TableCell::new_with_alignment(
                     bold.paint(
@@ -387,7 +387,7 @@ impl Weather {
     fn set_forecast_hour_data(&self, hr: &[Hour], table: &mut Table) {
         let green = Colour::Green;
         let data = hr
-            .into_iter()
+            .iter()
             .map(|h| {
                 TableCell::new_with_alignment(
                     format!(
