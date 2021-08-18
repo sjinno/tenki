@@ -73,7 +73,6 @@ pub struct Current {
     last_updated: String,
     temp_c: f32,
     temp_f: f32,
-    is_day: u8,
     condition: Condition,
     wind_mph: f32,
     wind_kph: f32,
@@ -84,7 +83,7 @@ pub struct Current {
     feelslike_c: f32,
     feelslike_f: f32,
     uv: f32,
-    air_quality: Aqi,
+    air_quality: Option<Aqi>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -216,54 +215,35 @@ impl Weather {
     }
 
     fn set_weather_data_2(&self, table: &mut Table) {
-        table.add_row(Row::new(vec![
+        let mut data = vec![
             TableCell::new_with_alignment(self.current.cloud, 1, Alignment::Center),
             TableCell::new_with_alignment(self.current.uv, 1, Alignment::Center),
-            TableCell::new_with_alignment(
-                self.current.air_quality.get("us-epa-index").unwrap(),
-                1,
-                Alignment::Center,
-            ),
-            TableCell::new_with_alignment(
-                format!(
-                    "{:.2}",
-                    self.current
-                        .air_quality
-                        .get("pm2_5")
-                        .unwrap()
-                        .as_f64()
-                        .unwrap()
+        ];
+        if let Some(aqi) = &self.current.air_quality {
+            data.extend_from_slice(&[
+                TableCell::new_with_alignment(
+                    aqi.get("us-epa-index").unwrap(),
+                    1,
+                    Alignment::Center,
                 ),
-                1,
-                Alignment::Center,
-            ),
-            TableCell::new_with_alignment(
-                format!(
-                    "{:.2}",
-                    self.current
-                        .air_quality
-                        .get("pm10")
-                        .unwrap()
-                        .as_f64()
-                        .unwrap()
+                TableCell::new_with_alignment(
+                    format!("{:.2}", aqi.get("pm2_5").unwrap().as_f64().unwrap()),
+                    1,
+                    Alignment::Center,
                 ),
-                1,
-                Alignment::Center,
-            ),
-            TableCell::new_with_alignment(
-                format!(
-                    "{:.2}",
-                    self.current
-                        .air_quality
-                        .get("o3")
-                        .unwrap()
-                        .as_f64()
-                        .unwrap()
+                TableCell::new_with_alignment(
+                    format!("{:.2}", aqi.get("pm10").unwrap().as_f64().unwrap()),
+                    1,
+                    Alignment::Center,
                 ),
-                1,
-                Alignment::Center,
-            ),
-        ]));
+                TableCell::new_with_alignment(
+                    format!("{:.2}", aqi.get("o3").unwrap().as_f64().unwrap()),
+                    1,
+                    Alignment::Center,
+                ),
+            ]);
+        }
+        table.add_row(Row::new(data));
     }
     //# CURRENT ENDS
 

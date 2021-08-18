@@ -13,7 +13,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let response: Weather = request::get(&url)?;
     println!("{}", response);
     // TEST
-    // let response: Weather = serde_json::from_reader(std::fs::File::open("data/data_pdx.json")?)?;
+    // let response: Weather = serde_json::from_reader(std::fs::File::open("data/new_data.json")?)?;
     // println!("{}", response);
     // println!("{:#?}", response);
     // println!("{:#?}", response.current.air_quality.get("us-epa-index"));
