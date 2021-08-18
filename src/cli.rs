@@ -21,6 +21,6 @@ pub fn extract_args() -> WeatherRequest {
     let args = Cli::from_args();
     let days = if args.days > 3 { 3 } else { args.days };
     let location = args.location.join(" ");
-    println!("{:#?}", args.aqi);
+    // println!("{:#?}", args.aqi);
     WeatherRequest::new(days, location, args.aqi)
 }
