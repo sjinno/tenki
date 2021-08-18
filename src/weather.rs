@@ -167,9 +167,10 @@ impl Weather {
 
     fn get_location(&self) -> String {
         format!(
-            "{city}, {region} {localtime}",
+            "{city}, {region}, {country} {localtime}",
             city = self.location.name.to_ascii_uppercase(),
             region = self.location.region.to_ascii_uppercase(),
+            country = self.location.country.to_ascii_uppercase(),
             localtime = self.location.localtime
         )
     }
