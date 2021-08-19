@@ -15,7 +15,7 @@ pub struct Cli {
     #[structopt(short, long)]
     aqi: bool,
 
-    /// Choose to show temperatures in celsius.
+    /// Choose to show temperatures in celsius instead of fahrenheit.
     #[structopt(short, long)]
     cels: bool,
 }

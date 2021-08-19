@@ -8,12 +8,8 @@ pub fn create_url(base_url: &str, wr: &WeatherRequest) -> String {
     let value = dotenv::var(key).unwrap();
 
     // 4. Request data
-    // Current forecast URL:
-    // https://api.weatherapi.com/v1/current.json?key={KEY}&q={LOCATION}&aqi=no
-
     // Forecast URL:
-    // https://api.weatherapi.com/v1/forecast.json?key={KEY}&q={LOCATION}&days={N}&aqi=no&alerts=no
-
+    // https://api.weatherapi.com/v1/forecast.json?key={KEY}&q={LOCATION}&days={N}&aqi=yes&alerts=no
     let aqi = if wr.aqi { "yes" } else { "no" };
     let params;
     match &wr.days {
