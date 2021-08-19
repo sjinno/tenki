@@ -11,36 +11,6 @@ use term_table::{
 
 use std::fmt::{Display, Formatter, Result as FmtResult};
 
-#[derive(Debug)]
-pub enum WeatherForecast {
-    Forecast(String),
-}
-
-impl From<u8> for WeatherForecast {
-    fn from(n: u8) -> WeatherForecast {
-        WeatherForecast::Forecast(n.to_string())
-    }
-}
-
-#[derive(Debug)]
-pub struct WeatherRequest {
-    pub days: WeatherForecast,
-    pub location: String,
-    pub aqi: bool,
-    pub cels: bool,
-}
-
-impl WeatherRequest {
-    pub fn new(days: u8, location: String, aqi: bool, cels: bool) -> Self {
-        Self {
-            days: days.into(),
-            location,
-            aqi,
-            cels,
-        }
-    }
-}
-
 #[derive(Deserialize, Debug)]
 pub struct WeatherBuilder {
     pub location: Location,
@@ -167,10 +137,9 @@ impl Weather {
 
     fn get_location(&self) -> String {
         format!(
-            "{city}, {region}, {country} {localtime}",
+            "{city}, {region}, {localtime}",
             city = self.location.name.to_ascii_uppercase(),
             region = self.location.region.to_ascii_uppercase(),
-            country = self.location.country.to_ascii_uppercase(),
             localtime = self.location.localtime
         )
     }

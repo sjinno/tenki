@@ -1,4 +1,4 @@
-use crate::WeatherRequest;
+use crate::QueryParams;
 use structopt::StructOpt;
 
 /// Nicely outputs the weather forecast of the requested date or dates.
@@ -21,7 +21,7 @@ pub struct Cli {
 }
 
 // Extracts args into `WeatherRequest` format.
-pub fn extract_args() -> WeatherRequest {
+pub fn extract_args() -> QueryParams {
     let args = Cli::from_args();
     let days = if args.days > 3 && 0 < args.days {
         3
@@ -30,5 +30,5 @@ pub fn extract_args() -> WeatherRequest {
     };
     let location = args.location.join(" ");
     // println!("{:#?}", args.aqi);
-    WeatherRequest::new(days, location, args.aqi, args.cels)
+    QueryParams::new(days, location, args.aqi, args.cels)
 }
