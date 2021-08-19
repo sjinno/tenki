@@ -237,7 +237,6 @@ impl Weather {
 
     fn set_weather_header_2(&self, table: &mut Table) {
         let bold = Style::new().bold();
-        // temp (c), condition, wind (kph), precip (mm), humidity, cloud, feels like (c), uv
         table.add_row(Row::new(vec![
             TableCell::new_with_alignment(bold.paint("CLOUD (%)"), 1, Alignment::Center),
             TableCell::new_with_alignment(bold.paint("UV"), 1, Alignment::Center),
@@ -408,7 +407,6 @@ impl Weather {
 
     fn set_forecast_hour_data(&self, hr: &[Hour], table: &mut Table) {
         let green = Colour::Green;
-
         let data = hr
             .iter()
             .map(|h| {
@@ -432,7 +430,6 @@ impl Weather {
             .collect::<Vec<_>>();
         table.add_row(Row::new(data));
     }
-
     //# FORECAST ENDS
 }
 
