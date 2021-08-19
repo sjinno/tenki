@@ -286,7 +286,7 @@ impl Weather {
         self.set_forecast_title(fd, table);
         self.set_forecast_header(table);
         self.set_forecast_data(fd, table);
-        self.set_forecast_hour(&fd.hour, table);
+        self.set_forecast_hour(&fd.hour[..], table);
     }
 
     //# FORECAST
@@ -309,7 +309,7 @@ impl Weather {
             self.set_forecast_title(fd, table);
             self.set_forecast_header(table);
             self.set_forecast_data(fd, table);
-            self.set_forecast_hour(&fd.hour, table);
+            self.set_forecast_hour(&fd.hour[..], table);
         });
     }
 

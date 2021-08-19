@@ -11,17 +11,13 @@ pub fn create_url(base_url: &str, wr: &WeatherRequest) -> String {
     // Forecast URL:
     // https://api.weatherapi.com/v1/forecast.json?key={KEY}&q={LOCATION}&days={N}&aqi=yes&alerts=no
     let aqi = if wr.aqi { "yes" } else { "no" };
-    let params;
-    match &wr.days {
-        WeatherForecast::Forecast(n) => {
-            params = Serializer::new(String::new())
-                .append_pair("key", &value)
-                .append_pair("q", &wr.location)
-                .append_pair("days", &n)
-                .append_pair("aqi", aqi)
-                .append_pair("alerts", "no")
-                .finish();
-            format!("{}/forecast.json?{}", base_url, params)
-        }
-    }
+    let WeatherForecast::Forecast(days) = &wr.days;
+    let params = Serializer::new(String::new())
+        .append_pair("key", &value)
+        .append_pair("q", &wr.location)
+        .append_pair("days", &days)
+        .append_pair("aqi", aqi)
+        .append_pair("alerts", "no")
+        .finish();
+    format!("{}/forecast.json?{}", base_url, params)
 }
