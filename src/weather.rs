@@ -1,6 +1,5 @@
 use crate::types::Aqi;
 
-use ansi_term::{Colour, Style};
 use chrono::{NaiveDate, NaiveDateTime};
 use serde_derive::Deserialize;
 use term_table::{
@@ -8,6 +7,7 @@ use term_table::{
     table_cell::{Alignment, TableCell},
     Table,
 };
+use text_colorizer::Colorize;
 
 use std::fmt::{Display, Formatter, Result as FmtResult};
 
@@ -124,12 +124,10 @@ impl Weather {
 
     //# LOCATION
     fn format_location(&self, table: &mut Table) {
-        let bold = Style::new().bold();
-        let purple = Colour::Purple.bold();
         let location = self.get_location();
         let last_updated = self.get_last_updated();
         table.add_row(Row::new(vec![TableCell::new_with_alignment(
-            format!("{} | {}", bold.paint(location), purple.paint(last_updated)),
+            format!("{} | {}", location.bold(), last_updated.purple().bold()),
             6,
             Alignment::Center,
         )]));
@@ -162,24 +160,22 @@ impl Weather {
     }
 
     fn set_weather_title(&self, table: &mut Table) {
-        let style = Colour::Green.bold();
         table.add_row(Row::new(vec![TableCell::new_with_alignment(
-            style.paint("CURRENT WEATHER INFO"),
+            "CURRENT WEATHER INFO".green().bold(),
             6,
             Alignment::Center,
         )]));
     }
 
     fn set_weather_header_1(&self, table: &mut Table) {
-        let bold = Style::new().bold();
         let temp_unit = if self.cels { "TEMP (C)" } else { "TEMP (F)" };
         table.add_row(Row::new(vec![
-            TableCell::new_with_alignment(bold.paint(temp_unit), 1, Alignment::Center),
-            TableCell::new_with_alignment(bold.paint("FEELS LIKE"), 1, Alignment::Center),
-            TableCell::new_with_alignment(bold.paint("CONDITION"), 1, Alignment::Center),
-            TableCell::new_with_alignment(bold.paint("WIND (KPH)"), 1, Alignment::Center),
-            TableCell::new_with_alignment(bold.paint("PRECIP (MM)"), 1, Alignment::Center),
-            TableCell::new_with_alignment(bold.paint("HUMIDITY (%)"), 1, Alignment::Center),
+            TableCell::new_with_alignment(temp_unit.bold(), 1, Alignment::Center),
+            TableCell::new_with_alignment("FEELS LIKE".bold(), 1, Alignment::Center),
+            TableCell::new_with_alignment("CONDITION".bold(), 1, Alignment::Center),
+            TableCell::new_with_alignment("WIND (KPH)".bold(), 1, Alignment::Center),
+            TableCell::new_with_alignment("PRECIP (MM)".bold(), 1, Alignment::Center),
+            TableCell::new_with_alignment("HUMIDITY (%)".bold(), 1, Alignment::Center),
         ]));
     }
 
@@ -205,14 +201,13 @@ impl Weather {
     }
 
     fn set_weather_header_2(&self, table: &mut Table) {
-        let bold = Style::new().bold();
         table.add_row(Row::new(vec![
-            TableCell::new_with_alignment(bold.paint("CLOUD (%)"), 1, Alignment::Center),
-            TableCell::new_with_alignment(bold.paint("UV"), 1, Alignment::Center),
-            TableCell::new_with_alignment(bold.paint("US EPA IDX"), 1, Alignment::Center),
-            TableCell::new_with_alignment(bold.paint("PM 2.5"), 1, Alignment::Center),
-            TableCell::new_with_alignment(bold.paint("PM 10"), 1, Alignment::Center),
-            TableCell::new_with_alignment(bold.paint("OZONE"), 1, Alignment::Center),
+            TableCell::new_with_alignment("CLOUD (%)".bold(), 1, Alignment::Center),
+            TableCell::new_with_alignment("UV".bold(), 1, Alignment::Center),
+            TableCell::new_with_alignment("US EPA IDX".bold(), 1, Alignment::Center),
+            TableCell::new_with_alignment("PM 2.5".bold(), 1, Alignment::Center),
+            TableCell::new_with_alignment("PM 10".bold(), 1, Alignment::Center),
+            TableCell::new_with_alignment("OZONE".bold(), 1, Alignment::Center),
         ]));
     }
 
@@ -264,12 +259,13 @@ impl Weather {
     }
 
     fn set_forecast(&self, table: &mut Table) {
-        let yellow = Colour::Yellow.bold();
         table.add_row(Row::new(vec![TableCell::new_with_alignment(
-            yellow.paint(format!(
+            format!(
                 "WEATHER FORECAST FOR THE NEXT {} DAYS",
                 self.forecast.forecastday.len() - 1
-            )),
+            )
+            .yellow()
+            .bold(),
             6,
             Alignment::Center,
         )]));
@@ -283,9 +279,8 @@ impl Weather {
     }
 
     fn set_forecast_title(&self, fd: &ForecastDay, table: &mut Table) {
-        let purple = Colour::Purple.bold();
         table.add_row(Row::new(vec![TableCell::new_with_alignment(
-            purple.paint(format!(
+            format!(
                 "{date}, {day}",
                 date = &fd.date,
                 day = NaiveDate::parse_from_str(&fd.date, "%Y-%m-%d")
@@ -293,29 +288,30 @@ impl Weather {
                     .format("%A")
                     .to_string()
                     .to_ascii_uppercase()
-            )),
+            )
+            .purple()
+            .bold(),
             6,
             Alignment::Center,
         )]));
     }
 
     fn set_forecast_header(&self, table: &mut Table) {
-        let bold = Style::new().bold();
         table.add_row(Row::new(vec![
             TableCell::new_with_alignment(
-                format!("{}\n{}", bold.paint("MAX TEMP"), bold.paint("MIN TEMP")),
+                format!("{}\n{}", "MAX TEMP".bold(), "MIN TEMP".bold()),
                 1,
                 Alignment::Center,
             ),
             TableCell::new_with_alignment(
-                format!("{}\n{}", bold.paint("SUNRISE"), bold.paint("SUNSET")),
+                format!("{}\n{}", "SUNRISE".bold(), "SUNSET".bold()),
                 1,
                 Alignment::Center,
             ),
-            TableCell::new_with_alignment(bold.paint("CONDITION"), 1, Alignment::Center),
-            TableCell::new_with_alignment(bold.paint("RAIN (%)"), 1, Alignment::Center),
-            TableCell::new_with_alignment(bold.paint("SNOW (%)"), 1, Alignment::Center),
-            TableCell::new_with_alignment(bold.paint("UV"), 1, Alignment::Center),
+            TableCell::new_with_alignment("CONDITION".bold(), 1, Alignment::Center),
+            TableCell::new_with_alignment("RAIN (%)".bold(), 1, Alignment::Center),
+            TableCell::new_with_alignment("SNOW (%)".bold(), 1, Alignment::Center),
+            TableCell::new_with_alignment("UV".bold(), 1, Alignment::Center),
         ]));
     }
 
@@ -355,17 +351,15 @@ impl Weather {
     }
 
     fn set_forecast_hour_header(&self, hr: &[Hour], table: &mut Table) {
-        let bold = Style::new().bold();
         let header = hr
             .iter()
             .map(|h| {
                 TableCell::new_with_alignment(
-                    bold.paint(
-                        NaiveDateTime::parse_from_str(&h.time, "%Y-%m-%d %H:%M")
-                            .unwrap()
-                            .format("%H:%M")
-                            .to_string(),
-                    ),
+                    NaiveDateTime::parse_from_str(&h.time, "%Y-%m-%d %H:%M")
+                        .unwrap()
+                        .format("%H:%M")
+                        .to_string()
+                        .bold(),
                     1,
                     Alignment::Center,
                 )
@@ -375,7 +369,6 @@ impl Weather {
     }
 
     fn set_forecast_hour_data(&self, hr: &[Hour], table: &mut Table) {
-        let green = Colour::Green;
         let data = hr
             .iter()
             .map(|h| {
@@ -387,7 +380,7 @@ impl Weather {
                 TableCell::new_with_alignment(
                     format!(
                         "TEMP: {}\nRAIN: {}\nSNOW: {}\nUV: {}",
-                        green.paint(temp),
+                        temp.green(),
                         h.chance_of_rain,
                         h.chance_of_snow,
                         h.uv
